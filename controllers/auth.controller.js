@@ -1,16 +1,49 @@
 
-
 import * as service from '../services/auth.service.js'
 
-export const registrar = async ( req, res ) =>{
-    //conetamos al servicio
-     const datos = req.body
+// Registro de médicos
+export const registrar = async (req, res) => {
+  const { nombre, especialidad, email, password } = req.body ?? {}
 
-     const medico = await service.registrar( datos )
+  if (![nombre, especialidad, email, password].every(
+    valor => typeof valor === 'string' && valor.trim()
+  )) {
+    return res.status(400).json({
+      error: 'Faltan datos obligatorios'
+    })
+  }
 
-     return medico
+  const resultado = await service.registrar({
+    nombre,
+    especialidad,
+    email: email.trim().toLowerCase(),
+    password
+  })
+
+  return res.status(201).json(resultado)
 }
 
-export const login = async (req, res)=>{
-    //conectamos al servicio de login
+// Login de médicos
+export const login = async (req, res) => {
+  const { email, password } = req.body ?? {}
+
+  if (typeof email !== 'string' || !email.trim() ||
+      typeof password !== 'string' || !password) {
+    return res.status(400).json({
+      error: 'Email y contraseña son obligatorios'
+    })
+  }
+
+  const resultado = await service.login(
+    email.trim().toLowerCase(),
+    password
+  )
+
+  if (!resultado) {
+    return res.status(401).json({
+      error: 'Credenciales incorrectas'
+    })
+  }
+
+  return res.status(200).json(resultado)
 }
