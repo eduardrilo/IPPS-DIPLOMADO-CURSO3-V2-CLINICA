@@ -86,6 +86,6 @@ Las contraseñas se almacenan mediante hash y no se incluyen en las respuestas d
 
 ## Video de demostración
 
-**Enlace:** Pendiente de grabación.
+**Enlace:** https://www.youtube.com/watch?v=LmCjE_yTEqA
 
 El video mostrará el funcionamiento de la API, las validaciones, el control de acceso y las decisiones de implementación.
