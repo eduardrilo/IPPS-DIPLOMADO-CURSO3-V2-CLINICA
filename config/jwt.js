@@ -1,2 +1,7 @@
-export const JWT_SECRET = 'claveSecr3t@'  // ⚠️ solo para la clase
+
+export const JWT_SECRET = process.env.JWT_SECRET
 export const JWT_EXPIRA = '2h'
+
+if (!JWT_SECRET) {
+  throw new Error('Falta configurar JWT_SECRET')
+}
